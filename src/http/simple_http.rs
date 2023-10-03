@@ -389,6 +389,13 @@ impl Builder {
         self
     }
 
+    /// Adds authentication information to the transport using a bearer token.
+    pub fn token_auth<S: AsRef<str>>(mut self, token: S) -> Self {
+        self.tp.basic_auth = Some(format!("Bearer {}", token.as_ref()));
+        dbg!(&self.tp.basic_auth);
+        self
+    }
+
     /// Adds proxy address to the transport for SOCKS5 proxy.
     #[cfg(feature = "proxy")]
     pub fn proxy_addr<S: AsRef<str>>(mut self, proxy_addr: S) -> Result<Self, Error> {
